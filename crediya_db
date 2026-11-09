@@ -1,0 +1,98 @@
+DROP DATABASE IF EXISTS crediya_db;
+CREATE DATABASE crediya_db;
+USE crediya_db;
+
+CREATE TABLE empleados (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nombre VARCHAR(80),
+  documento VARCHAR(30),
+  rol VARCHAR(30),
+  correo VARCHAR(80),
+  contrasena INT(5) UNIQUE NOT NULL,
+  salario DECIMAL(10,2),
+  permiso_modificacion BOOLEAN NOT NULL DEFAULT false,
+  activo BOOLEAN NOT NULL DEFAULT TRUE
+);
+
+CREATE TABLE clientes (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nombre VARCHAR(80),
+  documento VARCHAR(30),
+  correo VARCHAR(80),
+  telefono VARCHAR(20),
+  contrasena INT(5) UNIQUE NOT null,
+  permiso_modificacion BOOLEAN NOT NULL DEFAULT false,
+  activo BOOLEAN NOT NULL DEFAULT TRUE
+);
+
+CREATE TABLE prestamos (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  cliente_id INT,
+  empleado_id INT,
+  monto DECIMAL(12,2),
+  interes DECIMAL(5,2),
+  cuotas INT,
+  fecha_inicio DATE,
+  estado VARCHAR(20),
+  FOREIGN KEY (cliente_id) REFERENCES clientes(id),
+  FOREIGN KEY (empleado_id) REFERENCES empleados(id)
+);
+
+CREATE TABLE pagos (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  prestamo_id INT,
+  fecha_pago DATE,
+  monto DECIMAL(10,2),
+  FOREIGN KEY (prestamo_id) REFERENCES prestamos(id)
+);
+
+-- EMPLEADOS
+INSERT INTO empleados (nombre, documento, rol, correo, contrasena, salario, permiso_modificacion, activo) VALUES
+('Laura Gómez Pérez',     '1098765432', 'Asesor',   'laura.gomez@crediya.com',     10234, 2800000.00, FALSE, TRUE),
+('Carlos Ramírez Díaz',   '1093456789', 'Asesor',   'carlos.ramirez@crediya.com',  20345, 2800000.00, FALSE, FALSE),
+('Marcela Torres Rueda',  '63456123',   'Gerente',  'marcela.torres@crediya.com',  30456, 6500000.00, TRUE,  TRUE),
+('Andrés Fonseca Mejía',  '91234567',   'Analista', 'andres.fonseca@crediya.com',  40567, 3500000.00, TRUE,  TRUE),
+('Sofía Becerra Ortiz',   '1100234567', 'Cajero',   'sofia.becerra@crediya.com',   50678, 2200000.00, FALSE, FALSE),
+('Julián Castillo Vega',  '1095123456', 'Asesor',   'julian.castillo@crediya.com', 60789, 2900000.00, FALSE, TRUE);
+
+-- CLIENTES
+INSERT INTO clientes (nombre, documento, correo, telefono, contrasena, permiso_modificacion,activo) VALUES
+('Juan Pablo Martínez',   '1005234567', 'juan.martinez@gmail.com',   '3101234567', 11111,TRUE, true),
+('María Fernanda López',  '1098123456', 'mafe.lopez@hotmail.com',    '3152345678', 22222,FALSE, false),
+('Pedro Antonio Suárez',  '13876543',   'pedro.suarez@gmail.com',    '3203456789', 33333,TRUE, true),
+('Diana Carolina Rojas',  '1102345678', 'diana.rojas@outlook.com',   '3014567890', 44444,FALSE,true),
+('Luis Eduardo Cárdenas', '91345678',   'luis.cardenas@gmail.com',   '3175678901', 55555,TRUE,false),
+('Camila Andrea Prada',   '1095678901', 'camila.prada@gmail.com',    '3126789012', 66666,TRUE,true),
+('Hernán Darío Quintero', '5678234',    'hernan.quintero@yahoo.com', '3187890123', 77777,FALSE,false);
+
+-- PRESTAMOS
+INSERT INTO prestamos (cliente_id, empleado_id, monto, interes, cuotas, fecha_inicio, estado) VALUES
+(1, 1,  5000000.00, 1.80, 12, '2025-01-15', 'Activo'),
+(2, 2,  3000000.00, 2.00,  6, '2025-02-10', 'Activo'),
+(3, 1, 10000000.00, 1.50, 24, '2024-11-05', 'Activo'),
+(4, 6,  1500000.00, 2.20,  3, '2025-03-01', 'Pagado'),
+(5, 2,  8000000.00, 1.70, 18, '2024-09-20', 'Activo'),
+(6, 6,  2000000.00, 2.00,  6, '2025-04-12', 'Mora'),
+(7, 1,  4500000.00, 1.90, 12, '2025-05-03', 'Activo'),
+(1, 2,  1000000.00, 2.50,  3, '2024-06-10', 'Pagado');
+
+-- PAGOS
+INSERT INTO pagos (prestamo_id, fecha_pago, monto) VALUES
+(1, '2025-02-15',  470000.00),
+(1, '2025-03-15',  470000.00),
+(1, '2025-04-15',  470000.00),
+(2, '2025-03-10',  540000.00),
+(2, '2025-04-10',  540000.00),
+(3, '2024-12-05',  520000.00),
+(3, '2025-01-05',  520000.00),
+(3, '2025-02-05',  520000.00),
+(4, '2025-04-01',  520000.00),
+(4, '2025-05-01',  520000.00),
+(4, '2025-06-01',  520000.00),
+(5, '2024-10-20',  540000.00),
+(5, '2024-11-20',  540000.00),
+(6, '2025-05-12',  370000.00),
+(7, '2025-06-03',  420000.00),
+(8, '2024-07-10',  350000.00),
+(8, '2024-08-10',  350000.00),
+(8, '2024-09-10',  350000.00);
