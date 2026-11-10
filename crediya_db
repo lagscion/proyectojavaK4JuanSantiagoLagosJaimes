@@ -67,14 +67,14 @@ INSERT INTO clientes (nombre, documento, correo, telefono, contrasena, permiso_m
 
 -- PRESTAMOS
 INSERT INTO prestamos (cliente_id, empleado_id, monto, interes, cuotas, fecha_inicio, estado) VALUES
-(1, 1,  5000000.00, 1.80, 12, '2025-01-15', 'Activo'),
-(2, 2,  3000000.00, 2.00,  6, '2025-02-10', 'Activo'),
-(3, 1, 10000000.00, 1.50, 24, '2024-11-05', 'Activo'),
-(4, 6,  1500000.00, 2.20,  3, '2025-03-01', 'Pagado'),
-(5, 2,  8000000.00, 1.70, 18, '2024-09-20', 'Activo'),
-(6, 6,  2000000.00, 2.00,  6, '2025-04-12', 'Mora'),
-(7, 1,  4500000.00, 1.90, 12, '2025-05-03', 'Activo'),
-(1, 2,  1000000.00, 2.50,  3, '2024-06-10', 'Pagado');
+(1, 1,  5000000.00, 1.80, 12, '2025-01-15', 'PENDIENTE'),
+(2, 2,  3000000.00, 2.00,  6, '2025-02-10', 'PENDIENTE'),
+(3, 1, 10000000.00, 1.50, 24, '2024-11-05', 'PAGADO'),
+(4, 6,  1500000.00, 2.20,  3, '2025-03-01', 'PENDIENTE'),
+(5, 2,  8000000.00, 1.70, 18, '2024-09-20', 'PAGADO'),
+(6, 6,  2000000.00, 2.00,  6, '2025-04-12', 'PENDIENTE'),
+(7, 1,  4500000.00, 1.90, 12, '2025-05-03', 'PENDIENTE'),
+(1, 2,  1000000.00, 2.50,  3, '2024-06-10', 'PENDIENTE');
 
 -- PAGOS
 INSERT INTO pagos (prestamo_id, fecha_pago, monto) VALUES
