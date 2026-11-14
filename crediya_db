@@ -13,7 +13,6 @@ CREATE TABLE empleados (
   permiso_modificacion BOOLEAN NOT NULL DEFAULT false,
   activo BOOLEAN NOT NULL DEFAULT TRUE
 );
-
 CREATE TABLE clientes (
   id INT AUTO_INCREMENT PRIMARY KEY,
   nombre VARCHAR(80),
@@ -22,7 +21,8 @@ CREATE TABLE clientes (
   telefono VARCHAR(20),
   contrasena INT(5) UNIQUE NOT null,
   permiso_modificacion BOOLEAN NOT NULL DEFAULT false,
-  activo BOOLEAN NOT NULL DEFAULT TRUE
+  activo BOOLEAN NOT NULL DEFAULT TRUE,
+ 
 );
 
 CREATE TABLE prestamos (
@@ -33,6 +33,8 @@ CREATE TABLE prestamos (
   interes DECIMAL(5,2),
   cuotas INT,
   fecha_inicio DATE,
+  fecha_fin DATE,
+  fecha_fin DATE,
   estado VARCHAR(20),
   FOREIGN KEY (cliente_id) REFERENCES clientes(id),
   FOREIGN KEY (empleado_id) REFERENCES empleados(id)
@@ -66,15 +68,15 @@ INSERT INTO clientes (nombre, documento, correo, telefono, contrasena, permiso_m
 ('Hernán Darío Quintero', '5678234',    'hernan.quintero@yahoo.com', '3187890123', 77777,FALSE,false);
 
 -- PRESTAMOS
-INSERT INTO prestamos (cliente_id, empleado_id, monto, interes, cuotas, fecha_inicio, estado) VALUES
-(1, 1,  5000000.00, 1.80, 12, '2025-01-15', 'PENDIENTE'),
-(2, 2,  3000000.00, 2.00,  6, '2025-02-10', 'PENDIENTE'),
-(3, 1, 10000000.00, 1.50, 24, '2024-11-05', 'PAGADO'),
-(4, 6,  1500000.00, 2.20,  3, '2025-03-01', 'PENDIENTE'),
-(5, 2,  8000000.00, 1.70, 18, '2024-09-20', 'PAGADO'),
-(6, 6,  2000000.00, 2.00,  6, '2025-04-12', 'PENDIENTE'),
-(7, 1,  4500000.00, 1.90, 12, '2025-05-03', 'PENDIENTE'),
-(1, 2,  1000000.00, 2.50,  3, '2024-06-10', 'PENDIENTE');
+INSERT INTO prestamos (cliente_id, empleado_id, monto, interes, cuotas, fecha_inicio,fecha_fin, estado) VALUES
+(1, 1,  5000000.00, 1.80, 12, '2025-01-15','2027-01-15', 'PENDIENTE'),
+(2, 2,  3000000.00, 2.00,  6, '2025-02-10','2027-01-15', 'PENDIENTE'),
+(3, 1, 10000000.00, 1.50, 24, '2024-11-05','2027-01-15', 'PAGADO'),
+(4, 6,  1500000.00, 2.20,  3, '2025-03-01','2025-01-15', 'PENDIENTE'),
+(5, 2,  8000000.00, 1.70, 18, '2024-09-20','2025-01-15', 'PAGADO'),
+(6, 6,  2000000.00, 2.00,  6, '2025-04-12','2027-01-15', 'PENDIENTE'),
+(7, 1,  4500000.00, 1.90, 12, '2025-05-03','2027-01-15', 'PENDIENTE'),
+(1, 2,  1000000.00, 2.50,  3, '2024-06-10','2025-01-15', 'PENDIENTE');
 
 -- PAGOS
 INSERT INTO pagos (prestamo_id, fecha_pago, monto) VALUES
